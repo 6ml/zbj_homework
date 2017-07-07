@@ -3,12 +3,12 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+	devtool: 'source-map',
 	// 入口
 	entry:[
 		'webpack-hot-middleware/client',
 		'./client/index'
 	],
-	devtool: 'source-map',
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'bundle.js'
