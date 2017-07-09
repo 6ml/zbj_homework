@@ -25,6 +25,9 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin(),
-		new HtmlWebpackPlugin()
+		new HtmlWebpackPlugin({
+      		title: '首页',
+      		template: './client/templates/templates.html',
+    	})
 	]
-}
+};

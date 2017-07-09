@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanPlugin = require("clean-webpack-plugin");
 
 module.exports = {
 	devtool: 'source-map',
@@ -9,7 +10,7 @@ module.exports = {
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: 'bundle.js'
+		filename: 'bundle.[hash].js'
 	},
 	module: {
 		loaders: [
@@ -21,7 +22,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		// new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
 				'NODE_ENV': "'production'"
@@ -32,6 +32,10 @@ module.exports = {
 				warnings: false
 			}
 		}),
-		new HtmlWebpackPlugin()
+		new HtmlWebpackPlugin({
+      		title: '首页',
+      		template: './client/templates/templates.html',
+    	}),
+    	new CleanPlugin(['dist'])
 	]
-}
+};

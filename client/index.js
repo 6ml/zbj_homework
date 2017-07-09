@@ -1,60 +1,40 @@
-// let Mock = require('mockjs');
-// // let data = Mock.mock({
-// // 	'list|1-10': [{
-// // 		'id|+1': 1,
-// // 		'name|1-2': 'asdsadasdasdasdasda'
-// // 	}]
-// // });
-
-// // let data = Mock.mock({
-// //     'number1|1-100.1-10': 1,
-// //     'number2|123.1-10': 1,
-// //     'number3|123.3': 1,
-// //     'number4|123.10': 1.123
-// // });
-
-// let Random = Mock.Random;
-
-let data = Mock.mock({
-	"list|3": [
-		{
-			'title': '@FIRST',
-			'author|+1': 1,
-			'site': '@URL'
-		}
-	]
-});
-
-// console.log(JSON.stringify(data));
-// console.log(data);
-
 import {
-	graphql, GraphQLSchema, GraphQLObjectType, GraphQLString
+	graphql
 } from 'graphql';
 
-let schema = new GraphQLSchema({
-	query: new GraphQLObjectType({
-		name: 'RootQueryType',
-		fields: {
-			hello: {
-				type: GraphQLString,
-				resolve() {
-					return data;
-				}
-			},
-			another: {
-				type: GraphQLString,
-				resolve(){
-					return 'yes';
-				}
-			}
-		}
-	})
-});
+import schema from './type/schema';
 
-let query = '{ hello, another }';
+// 查询语句
+let query = '{ article{title{title,url,authorId},author{name,id}} }';
 
+// 查询
 graphql(schema, query).then(result => {
-	console.log(result);
+	// result 即为查询到的数据
+	let data = result.data.article;
+	let author = data.author;
+	let title = data.title;
+	let html = "<ul>";
+
+	// 将作者信息与标题信息关联
+	title.forEach((title) => {
+		author.forEach((author) => {
+			if(title.authorId === author.id){
+				title.authorName = author.name;
+			}
+		});
+
+		// 若没有作者信息，将作者信息写成匿名
+		if(!title.authorName){
+			title.authorName = "Anonymous";
+		}
+
+		html += `<li>${title.title}(${title.url})<p>${title.authorName}</p></li>`;
+	});
+	
+	html += "</ul>";
+
+	// 将拼接好的 html 插入到页面中
+	document.getElementById('root').innerHTML = html;
 });
+
 
