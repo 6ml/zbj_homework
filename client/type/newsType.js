@@ -9,15 +9,15 @@ import TitleType from './titleType';
 import AuthorType from './authorType';
 
 /*
- * Article {
+ * News {
  *     title: Title,
  *     author: Author,
  * }
  *
  */
 
-const ArticleType = new GraphQLObjectType({
-	name: 'ArticleType',
+const NewsType = new GraphQLObjectType({
+	name: 'NewsType',
 	fields: {
 		title: {
 			type: new GraphQLList(TitleType),
@@ -30,4 +30,4 @@ const ArticleType = new GraphQLObjectType({
 	}
 });
 
-export default ArticleType;
+export default NewsType;

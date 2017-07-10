@@ -3,11 +3,11 @@ import {
 	GraphQLSchema
 } from 'graphql';
 
-import ArticleType from './articleType';
+import NewsType from './newsType';
 
 /*
  * queryType{
- *     article: ArticleType
+ *     news: NewsType
  * }
  *
  */
@@ -15,8 +15,8 @@ import ArticleType from './articleType';
 const queryType = new GraphQLObjectType({
 	name: 'RootQueryType',
 	fields: {
-		article: {
-			type: ArticleType,
+		news: {
+			type: NewsType,
 			resolve: () => ({})
 		}
 	}

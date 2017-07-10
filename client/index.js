@@ -5,12 +5,12 @@ import {
 import schema from './type/schema';
 
 // 查询语句
-let query = '{ article{title{title,url,authorId},author{name,id}} }';
+let query = '{ news{title{title,url,authorId},author{name,id}} }';
 
 // 查询
 graphql(schema, query).then(result => {
 	// result 即为查询到的数据
-	let data = result.data.article;
+	let data = result.data.news;
 	let author = data.author;
 	let title = data.title;
 	let html = "<ul>";
