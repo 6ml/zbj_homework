@@ -13,7 +13,7 @@ graphql(schema, query).then(result => {
 	let data = result.data.news;
 	let author = data.author;
 	let title = data.title;
-	let html = "<ul>";
+	let html = "<ol>";
 
 	// 将作者信息与标题信息关联
 	title.forEach((title) => {
@@ -31,7 +31,7 @@ graphql(schema, query).then(result => {
 		html += `<li>${title.title}(${title.url})<p>${title.authorName}</p></li>`;
 	});
 	
-	html += "</ul>";
+	html += "</ol>";
 
 	// 将拼接好的 html 插入到页面中
 	document.getElementById('root').innerHTML = html;
